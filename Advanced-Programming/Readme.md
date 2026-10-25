@@ -1,10 +1,14 @@
-# 高级程序语言设计
+# 高级程序语言设计 | Advanced Programming
+
+[简体中文](#简体中文) | [English](#english)
+
+## 简体中文
 
 本目录归档了我在同济大学本科阶段学习高级程序语言设计时完成的部分 C / C++ 作业，以及对应的题目、编程规范和实验资料。内容涵盖基础语法、程序控制结构、函数与递归、数组与字符串、指针、结构体及类，并包含消灭星星与汉诺塔综合演示的相关文件。
 
 这些文件保留了课程学习期间的实现与组织方式，可用于回顾解题思路、输入处理和多文件程序设计。
 
-## 目录导航
+### 目录导航
 
 | 目录 | 收录内容 |
 | --- | --- |
@@ -15,7 +19,7 @@
 | [Popstar](./Popstar/) | 消灭星星综合作业的题目、游戏逻辑与 Windows 控制台交互代码。 |
 | [Hanoi](./Hanoi/) | 汉诺塔综合演示的题目、程序入口、菜单、函数声明和控制台工具。 |
 
-## 章节作业
+### 章节作业
 
 | 目录 | 主要内容 |
 | --- | --- |
@@ -29,9 +33,9 @@
 
 章节目录保留原有题号与文件名；部分题目将入口、函数实现和头文件分开存放。阅读时可先查看题目要求，再对照对应编号的源码。
 
-## 综合作业
+### 综合作业
 
-### 消灭星星（Popstar）
+#### 消灭星星（Popstar）
 
 项目以二维数组表示棋盘，围绕相邻同色块识别、消除、下落与棋盘整理组织游戏逻辑，并通过 Windows 控制台提供文本和鼠标交互。
 
@@ -42,13 +46,13 @@
 
 菜单包含可消除项标识、单次消除、完整关卡和控制台伪图形界面等模式，可用于观察游戏逻辑与交互代码的分工。
 
-### 汉诺塔（Hanoi）
+#### 汉诺塔（Hanoi）
 
 本目录保留了综合演示作业的部分材料。`hanoi_main.cpp` 负责程序入口，`hanoi_menu.cpp` 提供菜单，`hanoi.h` 声明相关函数，`cmd_console_tools.*` 提供控制台操作支持。
 
 当前归档中的 `hanoi_multiple_solutions.cpp` 仅包含模板注释，尚未提供菜单项对应的执行函数，因此现有文件不足以构建完整的汉诺塔演示程序。菜单内容可结合题目 PDF 了解原作业要求。
 
-## 编译与运行
+### 编译与运行
 
 本目录以 Windows / Visual Studio 下的课程开发环境为主要背景，未收录统一的工程文件或构建脚本。不同题目是独立程序，需要分别组织和编译。
 
@@ -58,8 +62,74 @@
 
 多个练习各自包含 `main()`，应避免将不同题目的入口放入同一可执行项目。部分源码使用 `windows.h`、`conio.h`、`_getch()` 或 MSVC 相关接口，运行时需要相应的 Windows 开发环境。中文注释与字符串出现乱码时，可尝试按 GBK / GB18030 兼容编码打开源文件，并核对编译器的字符集设置。
 
-## 参考说明
+### 参考说明
 
 源码反映了我在入门阶段的学习过程，题目要求、实现方式和完成程度以各文件为准。参考时建议结合原题独立分析，并使用正常输入与边界输入验证结果；不同学年的作业安排应以当年的课程要求为准。
 
-[返回仓库首页](../README.md)
+[返回仓库首页](../README.md#简体中文)
+
+## English
+
+This directory archives selected C / C++ assignments I completed for the Advanced Programming course during my undergraduate studies at Tongji University, together with the corresponding problem statements, coding guidelines, and lab materials. Topics include basic syntax, control flow, functions and recursion, arrays and strings, pointers, structures, and classes. It also includes materials for the Popstar and Tower of Hanoi integrated assignments.
+
+The files retain their original implementations and organization from the course, providing a record of problem-solving approaches, input handling, and the organization of programs across multiple source files.
+
+### Directory Guide
+
+| Directory | Contents |
+| --- | --- |
+| [weeklyAssignment](./weeklyAssignment/) | Source code for Chapters 3–7, problem statements in PDF for selected chapters, input-handling examples, and supplementary exercises. |
+| [pptAssignment](./pptAssignment/) | Topic-based problem statements covering sequential execution, selection, iteration, input-error handling, string length, and expression evaluation. |
+| [assignmentCodeStyle](./assignmentCodeStyle/) | Course guidelines for source formatting, compilation, and assignment submission. |
+| [Tutorial](./Tutorial/) | Notes on Visual Studio 2022 warnings, input/output redirection, and pipe operators. |
+| [Popstar](./Popstar/) | The Popstar assignment specification, game logic, and Windows console interaction code. |
+| [Hanoi](./Hanoi/) | The Tower of Hanoi demonstration specification, program entry point, menu, function declarations, and console utilities. |
+
+### Chapter Assignments
+
+| Directory | Main Topics |
+| --- | --- |
+| [chapter3](./weeklyAssignment/chapter3/) | Input/output, numerical calculations, branching and loops, formatted output, and input validation; selected problems include both C and C++ implementations. |
+| [chapter4](./weeklyAssignment/chapter4/) | Functional decomposition, recursion, and the organization of programs across multiple source files. |
+| [chapter5](./weeklyAssignment/chapter5/) | Arrays, character arrays, string processing, and the `string` class. |
+| [chapter6](./weeklyAssignment/chapter6/) | Pointers, character traversal, and related function exercises. |
+| [chapter7](./weeklyAssignment/chapter7/) | Structures, nested structures, function overloading, classes, and objects. |
+| [InputSolution](./weeklyAssignment/InputSolution/) | Recovery from input failures and repeated input in C and C++. |
+| [additionalWorks](./weeklyAssignment/additionalWorks/) | Supplementary exercises and lab code retained under their original assignment identifiers. |
+
+Chapter directories retain the original problem identifiers and filenames. Some assignments store the entry point, function implementations, and header files separately. Start with the problem statement, then read the source files with the corresponding identifier.
+
+### Integrated Assignments
+
+#### Popstar
+
+The project represents the game board as a two-dimensional array. Its game logic covers identifying adjacent blocks of the same color, removing blocks, applying gravity, and compacting the board. Text and mouse interaction are provided through the Windows console.
+
+- `popstar-main.cpp`: program entry point and feature menu.
+- `popstar-base.cpp`, `popstar-tools.cpp`: basic operations and game-processing functions.
+- `popstar-console.cpp`: console interface and interaction implementation.
+- `popstar.h`, `cmd_console_tools.*`: function declarations and console utilities.
+
+The menu includes modes for highlighting removable blocks, performing a single elimination, completing a level, and using a console-based graphical interface. These modes illustrate how game logic and interaction code are organized separately.
+
+#### Tower of Hanoi
+
+This directory retains part of the integrated demonstration assignment. `hanoi_main.cpp` provides the program entry point, `hanoi_menu.cpp` implements the menu, `hanoi.h` declares the related functions, and `cmd_console_tools.*` supplies console operations.
+
+In the current archive, `hanoi_multiple_solutions.cpp` contains only template comments, without the execution functions required by the menu options. The available files therefore do not provide a complete buildable Tower of Hanoi demonstration. Read the menu alongside the assignment PDF to understand the original requirements.
+
+### Building and Running
+
+The assignments were primarily developed for Windows / Visual Studio. This directory does not include a shared project file or build script. Each assignment is an independent program and should be configured and compiled separately.
+
+1. Single-file assignments: create a separate console project for the selected `.c` or `.cpp` file.
+2. Assignments with multiple source files: add the entry point, implementation files, and headers for the same assignment to one project.
+3. Popstar: compile `popstar-main.cpp`, `popstar-base.cpp`, `popstar-console.cpp`, `popstar-tools.cpp`, and `cmd_console_tools.cpp` together, retaining the corresponding headers.
+
+Several exercises define their own `main()` functions. Keep entry points from different assignments in separate executable projects. Some source files use `windows.h`, `conio.h`, `_getch()`, or MSVC-specific interfaces and require the corresponding Windows development environment. If Chinese comments or strings appear garbled, try opening the source files with a GBK / GB18030-compatible encoding and check the compiler's character-set settings.
+
+### Reference Notes
+
+The source code documents my early programming studies. Consult the individual files for each assignment's requirements, implementation, and completion status. When using the material as a reference, analyze the original problem independently and verify the results with ordinary and boundary inputs. Assignment arrangements may differ between academic years; follow the requirements for the relevant course offering.
+
+[Return to the repository overview](../README.md#english)
