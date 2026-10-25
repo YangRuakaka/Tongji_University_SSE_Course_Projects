@@ -1,275 +1,126 @@
-# Teamfight Tactics
+# Teamfight Tactics 自走棋课程项目
 
-## 项目名称
+Teamfight_Tactics 是同济大学《程序设计范式》课程的团队项目，使用 C++ 与 Cocos2d-x 3.17.2 实现。项目参考《Dota 自走棋》《云顶之弈》和《金铲铲之战》的玩法，围绕卡牌购买、阵容组织、自动战斗和多人通信开展综合开发实践。
 
-Teamfight_Tactics
+本目录归档客户端源码、服务端源码、游戏资源与 Visual Studio 工程。原团队仓库为 [MinmusLin/Teamfight_Tactics](https://github.com/MinmusLin/Teamfight_Tactics)。
 
-## 项目简介
+## 功能概览
 
-A project of Teamfight Tactics based on [Cocos2d-x 3.17.2](https://docs.cocos.com/cocos2d-x/manual).
+| 模块 | 项目内容 |
+| --- | --- |
+| 场景与交互 | 初始界面、菜单与设置、玩家昵称、小小英雄移动、场景切换与按钮交互 |
+| 卡牌与阵容 | 多种英雄卡牌、商店购买、卡牌升级、布阵与英雄属性展示 |
+| 战斗系统 | 自动战斗、生命值与法力值显示、技能释放、武器动画与战斗音效 |
+| 成长与策略 | 金币与经验、羁绊加成、强化符文、商店推荐与 AI 布阵 |
+| 练习模式 | 人类玩家与多个 AI 玩家对战 |
+| 联机模式 | 独立服务端、客户端连接与房间交互、玩家信息与战场数据交换 |
+| 视听资源 | 场景、按钮、英雄与小小英雄图像，背景音乐及交互音效 |
 
-基于 [Cocos2d-x 3.17.2](https://docs.cocos.com/cocos2d-x/manual) 开发的金铲铲之战游戏项目。
+以上为课程开发记录与源码中的功能范围；当前归档的完整运行需要先恢复引擎依赖。
 
-参考游戏：《Dota 自走棋》《云顶之弈》《金铲铲之战》
+## 代码结构
 
-> Relevant course
-> * Programing Paradigm (同济大学程序设计范式)
+```text
+Teamfight_Tactics/
+├── Classes/                 # 客户端游戏逻辑
+│   ├── AppDelegate/         # 应用初始化与生命周期
+│   ├── Battle/              # 战斗逻辑
+│   ├── Button/              # 按钮交互
+│   ├── Champion/            # 英雄与卡牌
+│   ├── Control/             # 模式控制与网络客户端
+│   ├── Layer/               # 属性、布阵标记与计分界面
+│   ├── LocationMap/         # 棋盘位置映射
+│   ├── Player/              # 人类与 AI 玩家
+│   └── Scene/               # 菜单、准备、战斗与符文场景
+├── Resources/               # 图像、音频与字体
+├── Server/                  # Windows Socket 服务端
+├── proj.win32/              # Windows 客户端工程、入口与公共配置
+└── LICENSE
+```
 
-## 成员分工
+客户端按场景、模式控制、玩家、英雄和战斗等职责拆分。`Control` 与 `Player` 的派生类分别承载不同游戏模式和玩家行为；服务端负责连接管理及对局信息交换。
 
-| 姓名 | 学号 | 分工 |
-| :---: | :---: | :---: |
-| 林继申 (组长) | 2250758 | **项目后端工作统筹** <br> 项目任务分工 <br> 代码审查 <br> 项目框架搭建 <br> 网络环境搭建 <br> 练习模式与联机模式 <br> `AppDelegate` 类 <br> `Battle` 类 <br> `HoverButton` 类 <br> `Champion` 类 <br> `Control` 类及其派生类 <br> `ChampionAttributesLayer` 类 <br> `PlacementMarkerLayer` 类 <br> `ScoreBoardLayer` 类 <br> `LocationMap` 类 <br> `Player` 类及其派生类 <br> `Scene` 类及其派生类 <br> `Server` 类 |
-| 刘淑仪 | 2251730 | **项目前端工作统筹** <br> 练习模式与联机模式 <br> `Champion` 类 <br> `ChampionAttributesLayer` 类 <br> `PlacementMarkerLayer` 类 <br> `ScoreBoardLayer` 类 <br> `Scene` 类及其派生类 <br> 图标绘制 <br> 按钮绘制 <br> 战斗英雄与小小英雄绘制 <br> 图像元素绘制 <br> 场景绘制 <br> 音频引擎 <br> 背景音乐与音效 |
-| 杨兆镇 | 2252712 | **项目 AI 玩家算法统筹** <br> 练习模式 <br> `Player` 类及其派生的 `AIPlayer` 类 |
-| 杨宇琨 | 2252843 | **项目测试统筹** <br> 练习模式与联机模式 <br> `Battle` 类 <br> `Champion` 类 <br> `OfflineModeControl` 类 <br> `HumanPlayer` 类 <br> `OfflineModeBattleScene` 类 <br> `OnlineModeBattleScene` 类 <br> 战斗英雄绘制 |
+## 团队分工
 
-## 成员贡献
+| 成员 | 学号 | 主要职责与参与模块 |
+| --- | --- | --- |
+| 林继申（组长） | 2250758 | 后端工作统筹、任务分配与代码审查；项目框架及网络环境；练习与联机模式；`AppDelegate`、`Battle`、`HoverButton`、`Champion`、`Control` 及派生类、`ChampionAttributesLayer`、`PlacementMarkerLayer`、`ScoreBoardLayer`、`LocationMap`、`Player` 及派生类、`Scene` 及派生类、`Server` |
+| 刘淑仪 | 2251730 | 前端工作统筹；练习与联机模式；`Champion`、`ChampionAttributesLayer`、`PlacementMarkerLayer`、`ScoreBoardLayer`、`Scene` 及派生类；图标、按钮、战斗英雄、小小英雄、图像元素与场景绘制；音频引擎、背景音乐及音效 |
+| 杨兆镇 | 2252712 | AI 玩家算法统筹；练习模式；`Player` 与派生类 `AIPlayer` |
+| 杨宇琨 | 2252843 | 测试工作统筹；练习与联机模式；`Battle`、`Champion`、`OfflineModeControl`、`HumanPlayer`、`OfflineModeBattleScene`、`OnlineModeBattleScene`；战斗英雄绘制 |
 
-| 姓名 | 学号 | 代码行数 | 工作量 |
-| :---: | :---: | :---: | :---: |
-| 林继申 (组长) | 2250758 | 4710 | 35% |
+### 课程归档贡献记录
+
+| 成员 | 学号 | 原文档记录的代码行数 | 原文档记录的工作量占比 |
+| --- | --- | ---: | ---: |
+| 林继申（组长） | 2250758 | 4710 | 35% |
 | 刘淑仪 | 2251730 | 1385 | 25% |
 | 杨兆镇 | 2252712 | 467 | 15% |
 | 杨宇琨 | 2252843 | 2282 | 25% |
 
-```
-git log --format='%aN' | sort -u | while read name; do echo -en "$name\t"; git log --author="$name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -; done
-```
-
-## 项目实现功能
-
-### 基础功能
-
-* [X] 有初始界面和设置界面
-* [X] 支持背景音效
-* [X] 支持多种类型的卡牌
-* [X] 支持卡牌升级功能
-* [X] 支持小小英雄的移动
-* [X] 场上卡牌支持红蓝血条，蓝条满时可以释放技能
-* [X] 支持创建房间和加入房间功能
-* [X] 支持练习模式，玩家可以和 N 个 AI 玩家对弈，**N ≥ 2**
-* [X] 支持联机模式，玩家可以和 N 个人类玩家联机对弈，**N ≥ 2**
-
-### 拓展功能
-
-* [x] 支持多种羁绊的加强功能
-* [X] 支持强化符文系统
-* [X] 支持战斗中的音效
-
-### 加分项
-
-* 版本控制和团队协作
-
-  * [x] 合理使用 Git 控制版本，将项目开源至 Github
-  * [x] 团队成员分工合理平等
-
-* 代码质量和安全
-
-  * [x] 使用单元测试保证代码质量
-  * [x] 合理地抛出异常和处理
-
-* 功能和架构
-
-  * [x] 界面精美
-  * [x] 项目目录结构清晰
-
-* 其他
-
-  * [x] 没有内存泄露
-  * [x] 程序运行过程不会发生崩溃情况
-  * [x] 尽可能多地使用了 C++11 特性
-  * [x] 优秀的商店推荐算法和 AI 落棋算法
-  * [x] 规范统一的代码风格
-
-## 项目开发日志
-
-### 2023/11/22
-
-* Python 2.7.10 环境配置
-* CMake 3.28.0 环境配置
-* Cocos2d-x 4.0 环境配置
-
-### 2023/11/23
-
-* 明确项目代码规范
-* Markdown 语言掌握
-
-### 2023/11/24
-
-* 学习 Cocos2d-x
-
-### 2023/11/29
-
-* 项目托管 GitHub [仓库](https://github.com/MinmusLin/Teamfight_Tactics)
-
-### 2023/12/3
-
-* git 工具掌握
-* GitHub Desktop 工具掌握
-* 明确项目 git 提交规范
-* 放弃 Cocos2d-x 4.0 环境，配置 Cocos2d-x 3.17.2 环境
-* 编译 Cocos2d-x 3.17.2 测试项目
-
-### 2023/12/4
-
-* 明确项目仓库组成
-* Boost 网络环境配置
-
-### 2023/12/8
-
-* 初步确定团队成员分工
-
-### 2023/12/9
-
-* 放弃 Boost 网络环境，配置 socket 网络环境
-* 初步搭建项目框架
-* 实现 `AppDelegate` 类
-
-### 2023/12/10
-
-* 初步搭建 socket 网络环境
-
-### 2023/12/11
-
-* 基本搭建 socket 网络环境
-* 基本实现 `Server` 类
-
-### 2023/12/12
-
-* 基本确定团队成员分工
-* 基本搭建项目框架
-* 实现 `HoverButton` 类
-* 实现 `GBKToUTF8` 单例
-
-### 2023/12/16
-
-* 绘制图标
-
-### 2023/12/17
-
-* 初步实现商店功能
-
-### 2023/12/18
-
-* 完善初始场景背景图与细节
-* 实现 `Champion` 类的鼠标事件监听功能
-
-### 2023/12/19
-
-* 完善项目框架
-* 初步实现 `Champion` 类
-* 初步实现 `OfflineModeControl` 类
-* 初步实现 `Player` 类
-* 初步实现 `HumanPlayer` 类
-* 实现 `InitialScene` 类与交互细节
-* 实现 `LocationMap` 单例
-
-### 2023/12/20
-
-* 调整 `Resources 文件夹`
-* 调整 `GBKToUTF8` 单例
-* 调整 `LocationMap` 单例
-* 实现 `StartupScene` 类与交互细节
-* 实现 `MenuScene` 类与交互细节
-* 初步实现 `OfflineModePreparationScene` 类与交互细节
-* 初步实现 `Battle` 类
-* 确定战斗英雄属性参数
-* 完成战斗英雄绘制
-
-### 2023/12/22
-
-* 初步实现 `ChampionAttributesLayer` 类
-
-### 2023/12/23
-
-* 实现 `ChampionAttributesLayer` 类
-* 实现 `PlacementMarkerLayer` 类
-* 绘制商店相关按钮
-* 基本实现 `HumanPlayer` 类
-* 基本实现 `OfflineModePreparationScene` 类与交互细节
-
-### 2023/12/24
-
-* 实现金币系统
-* 调整命名空间
-* 实现 `OfflineModePreparationScene` 类与交互细节
-
-### 2023/12/25
-
-* 实现 `Battle` 类
-* 实现 `Champion` 类
-* 实现 `OfflineModeBattleScene` 类
-* 实现 `OfflineModeControl` 类
-* 实现 `ScoreBoardLayer` 类
-* 工作对接与项目仓库整合
-* 基本实现练习模式
-
-### 2023/12/26
-
-* 实现 `Control` 类
-* 实现生命条与经验条效果
-* 实现武器动画效果
-
-### 2023/12/27
-
-* 完善游戏功能性与平衡性
-* 实现商店推荐算法
-* 实现 AI 落子算法
-* 实现 `Player` 类
-* 实现 `AIPlayer` 类
-* 实现 `HumanPlayer` 类
-* 工作对接与项目仓库整合
-* 实现练习模式
-
-### 2023/12/28
-
-* 完善商店推荐算法
-* 完善 AI 落子算法
-* 基本实现 `OnlineModeMenuScene` 类与交互细节
-
-### 2023/12/29
-
-* 初步实现 `OnlineModeControl` 类
-* 初步实现 `OnlineModePreparationScene` 类与交互细节
-* 初步实现 `OnlineModeBattleScene` 类与交互细节
-* 实现 `SelectionScene` 类与交互细节
-* 实现 `SettingsScene` 类与交互细节
-* 初步实现联机模式
-* 实现小小英雄移动功能
-* 实现羁绊系统
-
-### 2023/12/30
-
-* 基本实现 `OnlineModeControl` 类
-* 基本实现 `OnlineModePreparationScene` 类与交互细节
-* 基本实现 `OnlineModeBattleScene` 类与交互细节
-* 实现 `OfflineModeRuneScene` 类与交互细节
-* 基本实现联机模式
-* 实现音频引擎
-* 实现天赋符文系统
-
-### 2023/12/31
-
-* 调整 `Resources 文件夹`
-* 实现 `OnlineModeControl` 类
-* 实现 `OnlineModePreparationScene` 类与交互细节
-* 实现 `OnlineModeBattleScene` 类与交互细节
-* 实现 `OnlineModeMenuScene` 类与交互细节
-* 实现 `ReferenceScene` 类与交互细节
-* 实现 `Server` 类
-* 实现联机模式
-* 游戏功能性与平衡性测试
-* 项目收尾工作
-
-## 集成开发环境
-
-* Microsoft Visual Studio 2022
-
-## 编译运行环境
-
-* 本项目仅适用于x86架构
-
-## 文档更新日期
-
-2023年12月31日
+上述数值保留自课程项目原始文档，未按当前归档仓库重新统计。代码行数与工作量占比采用不同口径，图像绘制、测试、设计和协作等工作也属于团队贡献。
+
+## 构建与运行
+
+### 环境与依赖
+
+| 项目 | 要求或归档状态 |
+| --- | --- |
+| 操作系统 | Windows；客户端和服务端使用 Windows Socket |
+| 开发环境 | 原项目使用 Microsoft Visual Studio 2022；现有工程指定 `v143` 工具集 |
+| 游戏引擎 | Cocos2d-x 3.17.2，包含工程引用的引擎代码、属性文件及第三方库 |
+| 客户端平台 | 工程提供 Debug / Release 的 Win32（x86）配置 |
+| 服务端平台 | 工程包含 Win32 和 x64 配置；客户端整体方案按 Win32 配置恢复 |
+| 资源 | 保留 `Resources/` 及其相对路径，供场景、字体和音频加载使用 |
+
+`cocos2d/` 被原项目的 `.gitignore` 排除，当前目录未包含该引擎。客户端工程与解决方案仍引用 `../cocos2d/` 下的属性文件、`libcocos2d`、Spine 和 Recast 工程，因此直接打开解决方案可能出现依赖加载失败。
+
+### 恢复与启动流程
+
+1. 准备 Cocos2d-x 3.17.2 及其 Windows 构建依赖，将引擎目录恢复到本目录的 `cocos2d/`，或在本地调整工程中的引用路径。
+2. 使用 Visual Studio 2022 打开 [客户端解决方案](./proj.win32/Teamfight_Tactic.sln)，确认 C++ 工具集和引擎依赖均可加载，选择 Win32 配置进行构建。服务端也可通过 [Server.vcxproj](./Server/Server.vcxproj) 单独打开。
+3. 检查资源工作目录。现有 `.vcxproj.user` 将客户端调试工作目录设为 `Resources/`，源码使用相对路径加载图像、字体和音频；独立运行时需保持相应目录关系。
+4. 练习模式使用本地 AI 玩家。联机模式需先启动服务端，再在客户端输入服务端显示的 IPv4 地址和端口，完成连接后进入对局。
+
+上述流程依据现有工程与源码整理，完整构建与联机运行仍需在 Windows 环境中验证。
+
+## 开发记录
+
+以下时间线整理自课程项目原始日志，保留当时的环境选择与迭代过程。
+
+| 日期 | 开发内容 |
+| --- | --- |
+| 2023-11-22 | 配置 Python 2.7.10、CMake 3.28.0 与 Cocos2d-x 4.0 环境 |
+| 2023-11-23 | 明确代码规范，学习 Markdown 文档编写 |
+| 2023-11-24 | 学习 Cocos2d-x |
+| 2023-11-29 | 在 GitHub 托管项目仓库 |
+| 2023-12-03 | 学习 Git 与 GitHub Desktop，明确提交规范；从 Cocos2d-x 4.0 切换至 3.17.2，并编译测试项目 |
+| 2023-12-04 | 明确仓库组成，配置 Boost 网络环境 |
+| 2023-12-08 | 初步确定团队分工 |
+| 2023-12-09 | 从 Boost 切换至 Socket；初步搭建项目框架，实现 `AppDelegate` |
+| 2023-12-10 | 初步搭建 Socket 网络环境 |
+| 2023-12-11 | 基本完成网络环境，初步实现 `Server` |
+| 2023-12-12 | 基本确定分工与框架，实现 `HoverButton` 和 `GBKToUTF8` 单例 |
+| 2023-12-16 | 绘制项目图标 |
+| 2023-12-17 | 初步实现商店功能 |
+| 2023-12-18 | 完善初始场景背景与交互细节，实现 `Champion` 鼠标事件监听 |
+| 2023-12-19 | 完善框架；初步实现 `Champion`、`OfflineModeControl`、`Player` 与 `HumanPlayer`；实现 `InitialScene` 交互及 `LocationMap` 单例 |
+| 2023-12-20 | 调整资源目录、`GBKToUTF8` 与 `LocationMap`；实现启动和菜单场景；初步实现练习模式准备场景与 `Battle`；确定英雄属性，完成战斗英雄绘制 |
+| 2023-12-22 | 初步实现 `ChampionAttributesLayer` |
+| 2023-12-23 | 实现英雄属性层与布阵标记层，绘制商店按钮；基本实现 `HumanPlayer` 和练习模式准备场景 |
+| 2023-12-24 | 实现金币系统，调整命名空间，完善练习模式准备场景 |
+| 2023-12-25 | 实现战斗、英雄、练习模式战斗场景、练习模式控制和计分层；整合团队工作，基本完成练习模式 |
+| 2023-12-26 | 实现 `Control`、生命条与经验条效果、武器动画 |
+| 2023-12-27 | 调整功能与平衡性；实现商店推荐和 AI 落子算法；完善玩家类及派生类，整合并完成练习模式 |
+| 2023-12-28 | 完善商店推荐与 AI 落子算法，基本实现联机菜单场景 |
+| 2023-12-29 | 初步实现联机控制、准备场景、战斗场景与联机模式；实现选择和设置场景、小小英雄移动及羁绊系统 |
+| 2023-12-30 | 基本完成联机控制与场景，实现练习模式符文场景、音频引擎和天赋符文系统 |
+| 2023-12-31 | 调整资源目录；完成联机控制、相关场景、参考场景和服务端；进行功能与平衡性测试，完成项目收尾 |
+
+原开发日志截止日期：2023 年 12 月 31 日。早期环境尝试保留在时间线中，恢复项目时以当前工程及最终采用的 Cocos2d-x 3.17.2 为依据。
+
+## 归档与引用
+
+本项目用于记录本科课程中的团队开发实践。引用源码或介绍项目时，请保留原作者及团队分工信息，并参阅 [LICENSE](./LICENSE)。
+
+[返回课程目录](../README.md) · [返回仓库首页](../../README.md)
